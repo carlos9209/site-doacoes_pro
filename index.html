@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - Site de Doações</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+  <div class="card">
+    <h1>Login</h1>
+    <input id="nome" type="text" placeholder="Seu nome" />
+    <input id="email" type="email" placeholder="Seu email" />
+    <button id="btnEntrar">Entrar</button>
+  </div>
+</div>
+
+<script>
+document.getElementById('btnEntrar').addEventListener('click',()=>{
+  const nome=document.getElementById('nome').value.trim();
+  const email=document.getElementById('email').value.trim();
+  if(!nome||!email){ alert('Preencha nome e email'); return; }
+  const usuario={nome,email};
+  localStorage.setItem('usuarioLogado',JSON.stringify(usuario));
+  window.location.href='doacoes.html';
+});
+</script>
+</body>
+</html>
