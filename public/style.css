@@ -1,0 +1,46 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f7f7fb;
+  margin: 0;
+  padding: 0;
+}
+header {
+  background: #1f2937;
+  color: #fff;
+  padding: 18px;
+  text-align: center;
+}
+main {
+  max-width: 700px;
+  margin: 24px auto;
+  padding: 16px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, .06);
+}
+label {
+  display: block;
+  margin-top: 8px;
+}
+input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+button {
+  margin-top: 12px;
+  background: #3b82f6;
+  color: #fff;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+#ranking {
+  margin-top: 16px;
+}
+.donor {
+  border-bottom: 1px solid #eee;
+  padding: 6px 0;
+}

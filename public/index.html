@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Doações — Meu Processador Queimou</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>Ajude a consertar meu PC</h1>
+  <p>Um gesto pequeno para você, um novo começo para meu PC — cada real conta.</p>
+</header>
+<main>
+  <h2>Meu vídeo e foto</h2>
+  <img src="/midia/foto.jpg" alt="Foto do meu PC" style="max-width:100%; border-radius:6px;">
+  <video controls src="/midia/video.mp4" style="max-width:100%; border-radius:6px;"></video>
+
+  <h2>Login simples</h2>
+  <label>Nome</label>
+  <input id="nome" type="text" placeholder="Seu nome">
+  <label>Email</label>
+  <input id="email" type="text" placeholder="Seu email">
+
+  <h2>Doar</h2>
+  <label>Valor (R$)</label>
+  <input id="valor" type="number" min="1" value="5">
+  <button onclick="doar()">Doar agora</button>
+
+  <div id="msg"></div>
+
+  <h2>Ranking de doadores</h2>
+  <div id="ranking"></div>
+</main>
+<script>
+async function doar(){
+  const nome = document.getElementById('nome').value;
+  const email = document.getElementById('email').value;
+  const valor = Number(document.getElementById('valor').value);
+  if(!nome || !email){alert('Preencha nome e email');return;}
+  const res = await fetch('/doar',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({nome,email,valor})
+  });
+  const data = await res.json();
+  document.getElementById('msg').innerHTML =
+    data.message + '<br><a href="'+data.url+'" target="_blank">Pagar aqui</a>';
+  carregarRanking();
+}
+
+async function carregarRanking(){
+  const res = await fetch('/ranking');
+  const ranking = await res.json();
+  const el = document.getElementById('ranking');
+  if(!ranking.length){el.innerHTML='Nenhuma doação ainda';return;}
+  el.innerHTML = '';
+  ranking.forEach((d,i)=>{
+    el.innerHTML += `<div class="donor">#${i+1} <strong>${d.nome}</strong> — R$${d.valor}</div>`;
+  });
+}
+carregarRanking();
+</script>
+</body>
+</html>
