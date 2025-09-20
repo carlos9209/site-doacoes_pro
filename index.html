@@ -1,30 +1,44 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login - Site de Doações</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Doação para trocar meu processador</title>
 </head>
 <body>
-<div class="container">
-  <div class="card">
-    <h1>Login</h1>
-    <input id="nome" type="text" placeholder="Seu nome" />
-    <input id="email" type="email" placeholder="Seu email" />
-    <button id="btnEntrar">Entrar</button>
-  </div>
-</div>
+  <h1>Meu PC quebrou — Ajude!</h1>
 
-<script>
-document.getElementById('btnEntrar').addEventListener('click',()=>{
-  const nome=document.getElementById('nome').value.trim();
-  const email=document.getElementById('email').value.trim();
-  if(!nome||!email){ alert('Preencha nome e email'); return; }
-  const usuario={nome,email};
-  localStorage.setItem('usuarioLogado',JSON.stringify(usuario));
-  window.location.href='doacoes.html';
-});
-</script>
+  <label>Valor da doação (R$):</label>
+  <input id="amount" type="number" min="1" value="1">
+
+  <button id="doarBtn">Doar</button>
+
+  <script>
+    // O servidor Node rodando localmente
+    const SERVER_BASE = 'http://localhost:3000';
+
+    document.getElementById('doarBtn').addEventListener('click', async ()=>{
+      const valor = Number(document.getElementById('amount').value);
+      if (valor < 1) {
+        alert('Valor mínimo R$1');
+        return;
+      }
+      try {
+        const res = await fetch(SERVER_BASE + '/create-checkout-session', {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({amountBRL: valor*100})
+        });
+        const data = await res.json();
+        if (data.url) {
+          window.location = data.url;
+        } else {
+          alert('Erro ao iniciar pagamento');
+        }
+      } catch (e) {
+        alert('Erro de rede: ' + e);
+      }
+    });
+  </script>
 </body>
 </html>
