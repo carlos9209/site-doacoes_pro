@@ -8,9 +8,9 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const PORT = process.env.PORT || 3000;
-const PAG_EMAIL = process.env.PAG_EMAIL;
-const PAG_TOKEN = process.env.PAG_TOKEN;
+const PORT = 3000;
+const PAG_EMAIL = "carlossquena44@gmail.com";
+const PAG_TOKEN = "efab15ac-889c-4965-b3fb-362b0c2e151a648a96934a4c95e54c5415d99721fde7c587-bc38-4006-a684-74b3ab35e4ce";
 const RANK_FILE = './ranking.json';
 
 // Funções para salvar e carregar ranking
