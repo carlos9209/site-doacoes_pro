@@ -38,7 +38,7 @@
 </div>
 
 <script>
-const SERVER_BASE='http://localhost:3000';
+const SERVER_BASE='site-doacoespro-produção.up.railway.app';
 const userStr=localStorage.getItem('usuarioLogado');
 if(!userStr){ window.location.href='index.html'; }
 else { var user=JSON.parse(userStr); document.getElementById('bemvindo').textContent='Bem-vindo(a), '+user.nome+'!'; }
